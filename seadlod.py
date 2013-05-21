@@ -26,16 +26,29 @@ def biblio(biblio_id):
 
 
 def getRAAIdentifier(itemNumber):
-    if not itemNumber.contains(':'):
-        itemNumber = itemNumber + ':1'
-    query = 'itemNumber="%s"' % urllib.urlencode(itemNumber)
-    url = urllib2.urlopen('http://kulturarvsdata.se/ksamsok/api?x-api=test&method=search&query=%s&recordSchema=xml&fields=itemId' % query)
-    xml = url.read()
-    url.close()
-    doc = etree.fromstring(xml)
-    identifier = doc.xpath('/result/records[0]/record/field/@itemId')
-    print "Identifier", identifier
-    return identifier
+    identifier = None
+    if itemNumber:
+        if not ':' in itemNumber:
+            itemNumber = itemNumber + ':1'
+        itemNumber = "itemNumber=\"%s\"" % itemNumber
+        #itemNumber = "=".join(["\"itemNumber", "\""+itemNumber+"\""])
+        print "itemNumber", itemNumber, type(itemNumber)
+        query = {
+            u'x-api': u'test',
+            u'method': u'search',
+            u'recordSchema': u'xml',
+            u'fields': u'itemId',
+            u'query': itemNumber.encode('utf-8')
+        }
+        print "query", query
+        print "queryString", urllib.urlencode(query)
+        url = urllib2.urlopen(u'http://kulturarvsdata.se/ksamsok/api?%s' % urllib.urlencode(query))
+        xml = etree.parse(url)
+        root = xml.getroot()
+        identifier = root.findall('.//field')[0]
+        url.close()
+        print "Identifier", identifier.text
+    return identifier.text
 
 
 
