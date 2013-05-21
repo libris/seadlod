@@ -1,14 +1,24 @@
 {% extends "base.html" %}
 
-{% block title %}{{site_name}}{% endblock title %}
+{% block title %}{{site.site_name}}{% endblock title %}
 
 {% block content %}
-<h1>{{site_name}}</h1>
-Latitud: <span>{{latitude}}</span><br/>
-Longitud: <span>{{longitude}}</span>
+
+<h1>{{site.site_name}}</h1>
+Latitud: <span>{{site.latitude_dd}}</span><br/>
+Longitud: <span>{{site.longitude_dd}}</span>
 <br/><br/>
-{% if altitude %}
-Höjd över havet: <span>{{altitude}}</span>
+{% if site.altitude %}
+Höjd över havet: <span>{{site.altitude}}</span>
 {% endif %}
+{% if site.altitude %}
+<br/>
+<p>
+{{site.site_description}}
+</p>
+{% endif %}
+{% for biblio in site.biblios %}
+<a href="/biblio/{{biblio.biblio_id}}">{{biblio.author}}</a>
+{% endfor %}
 
 {% endblock content %}
