@@ -11,14 +11,17 @@ Longitud: <span>{{site.longitude_dd}}</span>
 {% if site.altitude %}
 Höjd över havet: <span>{{site.altitude}}</span>
 {% endif %}
-{% if site.altitude %}
+{% if site.site_description %}
 <br/>
 <p>
 {{site.site_description}}
 </p>
 {% endif %}
+<br/>
+<br/>
+Publikationer:<br/>
 {% for biblio in site.biblios %}
-<a href="/biblio/{{biblio.biblio_id}}">{{biblio.author}}</a>
+<a href="/biblio/{{biblio.biblio_id}}">{{biblio.title}} / {{biblio.author}} ({{biblio.year}})</a>
 {% endfor %}
 
 {% endblock content %}

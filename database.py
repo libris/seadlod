@@ -8,31 +8,12 @@ engine = create_engine('postgresql://postgres@localhost/sead', isolation_level='
 
 #metadata = MetaData(engine)
 
-# define two Table objects
-
-#tbl_publishers = Table('tbl_publishers', metadata,
-#            Column('publisher_id', Integer, primary_key=True),
-#            Column('publisher_name', String),
-#            Column('place_of_publishing_house', String)
-#            )
-#
-#tbl_biblio = Table('tbl_biblio', metadata,
-#                   Column('biblio_id', Integer, primary_key=True),
-#                   Column('author', String),
-#                   Column('publisher_id', Integer, ForeignKey('tbl_publishers.publisher_id')),
-#                   )
-#
-#biblio_publisher_join = join(tbl_biblio, tbl_publishers)
-
 Base = declarative_base()
 
 tbl_site_references = Table('tbl_site_references', Base.metadata,
      Column('site_id', Integer, ForeignKey('tbl_sites.site_id')),
      Column('biblio_id', Integer, ForeignKey('tbl_biblio.biblio_id'))
  )
-
-
-####
 
 class Site(Base):
     __tablename__ = 'tbl_sites'
@@ -53,8 +34,6 @@ class Biblio(Base):
     place_of_publishing_house = column_property(select([Publisher.place_of_publishing_house]).where(Publisher.publisher_id==publisher_id))
 
 
-
-#----------------------------------------------------------------------
 def loadSession():
     Session = sessionmaker(bind=engine)
     session = Session()

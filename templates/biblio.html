@@ -2,8 +2,19 @@
 
 {% block title %}{{biblio.author}}{% endblock title %}
 {% block content %}
-<h2>{{biblio.author}}</h2>
+<h2>{{biblio.title}}</h2>
+<h3>{{biblio.author}}</h3>
+Publiksationsår: <span>{{biblio.year}}</span>
 
+<br/><br/>
 Förläggares namn: <span>{{biblio.publisher_name}}</span><br/>
 Förlagsort: <span>{{biblio.place_of_publishing_house}}</span>
+
+<br/><br/>
+Rörande siter:
+{% for site in biblio.sites %}
+<a href="/site/{{site.site_id}}">{{site.site_name}}</a><br/>
+{% endfor %}
+
+
 {% endblock content %}
