@@ -2,7 +2,7 @@
 
 from flask import Flask, render_template
 
-from database import Sites
+from database import Site, Biblio
 import database
 
 app = Flask(__name__)
@@ -13,12 +13,13 @@ def hello():
 
 @app.route("/site/<int:site_id>")
 def site(site_id):
-    site = session.query(Sites).filter(Sites.site_id == site_id).first()
-    return render_template("site.html", site_name = site.site_name,
-                           latitude = site.latitude_dd,
-                           longitude = site.longitude_dd,
-                           altitude = site.altitude
-                          )
+    site = session.query(Site).filter(Site.site_id == site_id).first()
+    return render_template("site.html", site = site)
+
+@app.route("/biblio/<int:biblio_id>")
+def biblio(biblio_id):
+    biblio = session.query(Biblio).filter(Biblio.biblio_id == biblio_id).first()
+    return render_template("biblio.html", biblio = biblio)
 
 if __name__ == "__main__":
     session = database.loadSession()

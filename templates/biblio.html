@@ -2,6 +2,8 @@
 
 {% block title %}{{biblio.author}}{% endblock title %}
 {% block content %}
-Författare: <span>{{biblio.author}}</span>
-Förläggares namn: <span>{{biblio.publisher_name}}</span>
+<h2>{{biblio.author}}</h2>
+
+Förläggares namn: <span>{{biblio.publisher_name}}</span><br/>
+Förlagsort: <span>{{biblio.place_of_publishing_house}}</span>
 {% endblock content %}
