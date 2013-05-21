@@ -3,25 +3,28 @@
 {% block title %}{{site.site_name}}{% endblock title %}
 
 {% block content %}
-
-<h1>{{site.site_name}}</h1>
-Latitud: <span>{{site.latitude_dd}}</span><br/>
-Longitud: <span>{{site.longitude_dd}}</span>
-<br/><br/>
-{% if site.altitude %}
-Höjd över havet: <span>{{site.altitude}}</span>
-{% endif %}
-{% if site.site_description %}
-<br/>
-<p>
-{{site.site_description}}
-</p>
-{% endif %}
-<br/>
-<br/>
-Publikationer:<br/>
-{% for biblio in site.biblios %}
-<a href="/biblio/{{biblio.biblio_id}}">{{biblio.title}} / {{biblio.author}} ({{biblio.year}})</a>
-{% endfor %}
-
+<article typeof="PlaceOfWorship">
+    <h1 property="name">{{site.site_name}}</h1>
+    Latitud: <span property="latitude">{{site.latitude_dd}}</span><br/>
+    Longitud: <span property="longitude">{{site.longitude_dd}}</span>
+    <br/><br/>
+    {% if site.altitude %}
+        Höjd över havet: <span property="dbpo:elevation">{{site.altitude}}</span>
+    {% endif %}
+    {% if site.site_description %}
+        <br/>
+        <p property="description">{{site.site_description}}</p>
+    {% endif %}
+    <br/>
+    <br/>
+    Publikationer:<br/>
+    {% for biblio in site.biblios %}
+        <a property="foaf:isPrimaryTopicOf" href="/biblio/{{biblio.biblio_id}}">{{biblio.title}} / {{biblio.author}} ({{biblio.year}})</a><br/>
+    {% endfor %}
+    {% for sg in site.sample_groups %}
+        {% for biblio in sg.biblios %}
+            <a property="foaf:isPrimaryTopicOf" href="/biblio/{{biblio.biblio_id}}">{{biblio.title}} / {{biblio.author}} ({{biblio.year}})</a><br/>
+        {% endfor %}
+    {% endfor %}
+</article>
 {% endblock content %}
