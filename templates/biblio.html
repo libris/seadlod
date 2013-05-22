@@ -4,7 +4,7 @@
 {% block content %}
 <h2 property="title">{{biblio.title}}</h2>
 <h3 property="author">{{biblio.author}}</h3>
-Publiksationsår: <span >{{biblio.year}}</span>
+Publiksationsår: <span property="datePublished">{{biblio.year}}</span>
 
 <br/><br/>
 Förläggares namn: <span>{{biblio.publisher_name}}</span><br/>
@@ -14,7 +14,7 @@ Förlagsort: <span>{{biblio.place_of_publishing_house}}</span>
     <br/><br/>
     Rörande siter:
     {% for site in biblio.sites %}
-    <a href="/site/{{site.site_id}}">{{site.site_name}}</a><br/>
+    <a property="about" href="/site/{{site.site_id}}">{{site.site_name}}</a><br/>
     {% endfor %}
 {% endif %}
 
