@@ -5,9 +5,6 @@ from sqlalchemy.orm import mapper, sessionmaker, relationship, column_property
 from sqlalchemy.ext.declarative import declarative_base
 
 engine = create_engine('postgresql://postgres@localhost/sead', isolation_level='READ COMMITTED')
-
-#metadata = MetaData(engine)
-
 Base = declarative_base()
 
 tbl_site_references = Table('tbl_site_references', Base.metadata,
@@ -44,8 +41,6 @@ class Site(Base):
 
     biblios = relationship('Biblio', secondary=tbl_site_references, backref='sites')
     sample_groups = relationship('SampleGroup', foreign_keys=[SampleGroup.site_id], backref='site')
-
-
 
 def loadSession():
     Session = sessionmaker(bind=engine)

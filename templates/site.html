@@ -7,8 +7,10 @@
     <h1 property="name">{{site.site_name}}</h1>
     Latitud: <span property="latitude">{{site.latitude_dd}}</span><br/>
     Longitud: <span property="longitude">{{site.longitude_dd}}</span>
-    <br/><br/>
-    RAÄ: <a property="owl:sameAs" href="{{raaIdentifier}}">{{site.national_site_identifier}}</a><br/>
+        <br/><br/>
+    {% if raaIdentifier %}
+        RAÄ: <a property="owl:sameAs" href="{{raaIdentifier}}">{{site.national_site_identifier}}</a><br/>
+    {% endif %}
     {% if site.altitude %}
         Höjd över havet: <span property="dbpo:elevation">{{site.altitude}}</span>
     {% endif %}
